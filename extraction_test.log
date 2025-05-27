@@ -1,0 +1,46 @@
+2025-05-27 01:30:56,192 INFO Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-05-27 01:30:56,543 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:30:57,093 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:30:57,909 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:30:58,985 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:30:59,538 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:30:59,538 INFO ExtractionService initialized
+2025-05-27 01:31:00,632 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:31:01,184 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:31:01,185 INFO ExtractionService initialized
+2025-05-27 01:31:07,856 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-27 01:31:08,131 INFO Starting agentic ICD-10 lookup for condition: 'Overweight'
+2025-05-27 01:31:08,672 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:31:08,884 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:31:08,936 INFO ICD-10 lookup for 'Overweight': selected code E66.3 with confidence 1.00
+2025-05-27 01:31:09,198 INFO Starting agentic ICD-10 lookup for condition: 'Hyperlipidemia'
+2025-05-27 01:31:10,036 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:31:10,806 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:31:10,861 INFO ICD-10 lookup for 'Hyperlipidemia': selected code E78.49 with confidence 0.98
+2025-05-27 01:31:11,123 INFO Starting agentic ICD-10 lookup for condition: 'Low high-density lipoprotein'
+2025-05-27 01:31:11,241 INFO No ICD-10 code found for condition: 'Low high-density lipoprotein' (no candidates from NIH)
+2025-05-27 01:31:11,850 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-27 01:31:11,856 INFO Cache hit for RxNorm lookup: atorvastatin
+2025-05-27 01:53:10,111 INFO Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-05-27 01:53:10,460 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:11,025 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:11,849 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:12,935 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:13,491 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:13,491 INFO ExtractionService initialized
+2025-05-27 01:53:14,592 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:15,146 INFO Successfully initialized ChromaDB collection
+2025-05-27 01:53:15,146 INFO ExtractionService initialized
+2025-05-27 01:53:23,947 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-27 01:53:24,218 INFO Starting agentic ICD-10 lookup for condition: 'Hyperlipidemia'
+2025-05-27 01:53:25,033 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:53:25,253 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:53:25,318 INFO ICD-10 lookup for 'Hyperlipidemia': selected code E78.49 with confidence 0.98
+2025-05-27 01:53:25,587 INFO Starting agentic ICD-10 lookup for condition: 'Overweight'
+2025-05-27 01:53:26,148 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:53:26,678 INFO HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-05-27 01:53:26,730 INFO ICD-10 lookup for 'Overweight': selected code E66.3 with confidence 1.00
+2025-05-27 01:53:26,993 INFO Starting agentic ICD-10 lookup for condition: 'Low high-density lipoprotein'
+2025-05-27 01:53:27,100 INFO No ICD-10 code found for condition: 'Low high-density lipoprotein' (no candidates from NIH)
+2025-05-27 01:53:27,602 INFO HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-27 01:53:27,606 INFO Cache hit for RxNorm lookup: atorvastatin

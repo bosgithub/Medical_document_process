@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: medical-api
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    volumes:
+      - ./app/documents.db:/app/documents.db  # SQLite persistence (keep in app folder)
+      - ./soap_notes:/app/soap_notes      # Sample notes
+      - ./app/services/chroma_db:/app/services/chroma_db  # ChromaDB persistence
+    restart: unless-stopped
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_data: 

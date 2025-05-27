@@ -198,7 +198,7 @@ graph TD
     B -->|RAG Pipeline| E[ChromaDB]
     B -->|LLM Calls| F[LLM API]
     B -->|Extraction Agent| G[Extraction Service]
-    G -->|ICD-10/RxNorm Lookup| H[External Code APIs (NIH, RxNav)]
+    G -->|ICD-10/RxNorm Lookup| H[External Code APIs NIH, RxNav]
     G -->|LLM Fallback| F
     G -->|FHIR Mapping| I[FHIR Output]
     I -->|Response| A

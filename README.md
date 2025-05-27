@@ -193,24 +193,17 @@ Project/
 graph TD
     A[User / API Client]
     A -->|HTTP Requests| B(FastAPI Application)
-    B -->|CRUD| C[(Relational DB<br>(SQLite/PostgreSQL))]
+    B -->|CRUD| C[(Relational DB\n(SQLite/PostgreSQL))]
     B -->|Cache| D[(Redis)]
-    B -->|RAG Pipeline| E[Vector DB<br>(ChromaDB/Pinecone)]
-    B -->|LLM Calls| F[LLM API<br>(OpenAI, etc.)]
+    B -->|RAG Pipeline| E[Vector DB\n(ChromaDB/Pinecone)]
+    B -->|LLM Calls| F[LLM API\n(OpenAI, etc.)]
     B -->|Extraction Agent| G[Extraction Service]
-    G -->|ICD-10/RxNorm Lookup| H[External Code APIs<br>(NIH, RxNav)]
+    G -->|ICD-10/RxNorm Lookup| H[External Code APIs\n(NIH, RxNav)]
     G -->|LLM Fallback| F
     B -->|FHIR Mapping| I[FHIR Output]
     I -->|Response| A
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#fff,stroke:#333,stroke-width:1px
-    style D fill:#fff,stroke:#333,stroke-width:1px
-    style E fill:#fff,stroke:#333,stroke-width:1px
-    style F fill:#fff,stroke:#333,stroke-width:1px
-    style G fill:#fff,stroke:#333,stroke-width:1px
-    style H fill:#fff,stroke:#333,stroke-width:1px
     style I fill:#cfc,stroke:#333,stroke-width:1px
 ```
 

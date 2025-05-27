@@ -192,13 +192,13 @@ Project/
 ```mermaid
 graph TD
     A[User / API Client]
-    A -->|HTTP Requests| B(FastAPI Application)
-    B -->|CRUD| C[(Relational DB\n(SQLite/PostgreSQL))]
-    B -->|Cache| D[(Redis)]
-    B -->|RAG Pipeline| E[Vector DB\n(ChromaDB/Pinecone)]
-    B -->|LLM Calls| F[LLM API\n(OpenAI, etc.)]
+    A -->|HTTP Requests| B[FastAPI Application]
+    B -->|CRUD| C[Relational DB\nSQLite/PostgreSQL]
+    B -->|Cache| D[Redis]
+    B -->|RAG Pipeline| E[Vector DB\nChromaDB/Pinecone]
+    B -->|LLM Calls| F[LLM API\nOpenAI, etc.]
     B -->|Extraction Agent| G[Extraction Service]
-    G -->|ICD-10/RxNorm Lookup| H[External Code APIs\n(NIH, RxNav)]
+    G -->|ICD-10/RxNorm Lookup| H[External Code APIs\nNIH, RxNav]
     G -->|LLM Fallback| F
     B -->|FHIR Mapping| I[FHIR Output]
     I -->|Response| A

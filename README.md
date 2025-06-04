@@ -133,6 +133,47 @@ This project is structured to address each part of the assignment:
 
 ---
 
+## RAG Pipeline: Flow Process
+
+The Retrieval-Augmented Generation (RAG) pipeline enables the system to answer medical questions using both LLMs and relevant context from stored documents. Here is a step-by-step overview of the RAG flow:
+
+### 1. Document Preparation & Chunking
+- **Cleaning:** Each document is cleaned to remove extraneous whitespace and special characters while preserving medical terms.
+- **Chunking:** Documents are split into overlapping chunks (default: 800 characters, 150 overlap) to ensure context is preserved and to avoid breaking sentences. Each chunk is assigned metadata (title, document ID, chunk index, total chunks).
+
+### 2. Embedding Generation
+- **Model:** Each chunk and incoming query is converted into a vector embedding using OpenAI's `text-embedding-ada-002` model (or a local embedding model if configured).
+- **Batching:** Embeddings for multiple chunks are generated in batches for efficiency.
+
+### 3. Vector Database Storage (ChromaDB)
+- **Storage:** All chunk embeddings, along with their metadata, are stored in a persistent ChromaDB vector database. This enables fast similarity search using cosine similarity.
+- **Collection:** Chunks are stored in a collection named `medical_documents` with metadata for filtering and citation.
+
+### 4. Query Processing & Retrieval
+- **Query Embedding:** When a user asks a question, the query is embedded using the same embedding model.
+- **Similarity Search:** The query embedding is used to search the vector database for the top-k most relevant chunks (default: top 3). Results are sorted by similarity score.
+
+### 5. Context Assembly
+- **Formatting:** Retrieved chunks are formatted with their source information (document title, chunk index, etc.) for transparency and citation.
+- **Context Construction:** The context for the LLM is assembled as a concatenation of the top relevant chunks, each clearly labeled.
+
+### 6. LLM Answer Generation
+- **Prompting:** The LLM (e.g., GPT-4) is prompted with the user's question and the assembled context. The prompt instructs the LLM to:
+  - Answer the question directly
+  - Highlight key points from the context
+  - Provide relevant clinical examples
+  - Cite sources in the format: `[Source: Document Title, Chunk X/Y]`
+- **Fallback:** If the context does not contain relevant information, the LLM is instructed to say so.
+
+### 7. Response & Source Attribution
+- **Output:** The final answer includes the generated response and a list of the source chunks used.
+- **Transparency:** All source metadata is returned so users can trace the answer back to the original documents and chunks.
+
+### 8. Caching & Efficiency
+- **Redis Caching:** All expensive steps (embedding, retrieval, LLM calls) are cached in Redis to reduce latency and cost for repeated queries.
+
+---
+
 ## Project Structure
 
 ```
@@ -192,22 +233,48 @@ Project/
 ```mermaid
 graph TD
     A[User / API Client]
-    A -->|HTTP Requests| B[FastAPI Application]
+    A -->|HTTP Request| B[FastAPI Application]
     B -->|CRUD| C[SQLite]
     B -->|Cache| D[Redis]
-    B -->|RAG Pipeline| E[ChromaDB]
-    B -->|LLM Calls| F[LLM API]
-    B -->|Extraction Agent| G[Extraction Service]
-    G -->|ICD-10/RxNorm Lookup| H[External Code APIs\nNIH, RxNav]
-    H -- Success --> I[FHIR Mapping]
-    H -- Fail --> J[LLM Fallback]
-    J --> I
-    I --> K[FHIR Output]
-    K -->|Response| A
+    B -->|RAG Pipeline| E[RAG Service]
+    E -->|Document Preparation & Chunking| F[Document Service]
+    F -->|Chunks| G[Embedding Service]
+    G -->|Chunk Embeddings| H[ChromaDB Vector DB]
+    E -->|Query Embedding| G
+    G -->|Query Embedding| H
+    H -->|Top-k Chunks| E
+    E -->|Context Assembly| I[LLM (e.g., GPT-4)]
+    I -->|Answer + Citations| B
+    B -->|Response| A
+
+    subgraph "Document Ingestion"
+        F
+        G
+        H
+    end
+    subgraph "Query Flow"
+        G
+        H
+        E
+        I
+    end
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
-    style K fill:#cfc,stroke:#333,stroke-width:1px
+    style B fill:#fff,stroke:#333,stroke-width:1px
+    style E fill:#e0f7fa,stroke:#333,stroke-width:1px
+    style F fill:#e1bee7,stroke:#333,stroke-width:1px
+    style G fill:#ffe082,stroke:#333,stroke-width:1px
+    style H fill:#b2dfdb,stroke:#333,stroke-width:1px
+    style I fill:#cfc,stroke:#333,stroke-width:1px
 ```
+
+**Summary:**
+- User queries and documents are processed by FastAPI.
+- Documents are chunked, embedded, and stored in ChromaDB.
+- User queries are embedded and used to retrieve top-k relevant chunks from ChromaDB.
+- The RAG service assembles context from these chunks and prompts the LLM.
+- The LLM generates an answer with citations, which is returned to the user.
+- Redis caches all expensive steps for efficiency.
 
 ---
 

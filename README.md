@@ -243,7 +243,7 @@ graph TD
     E -->|Query Embedding| G
     G -->|Query Embedding| H
     H -->|Top-k Chunks| E
-    E -->|Context Assembly| I[LLM (e.g., GPT-4)]
+    E -->|Context Assembly| I[LLM]
     I -->|Answer + Citations| B
     B -->|Response| A
 
